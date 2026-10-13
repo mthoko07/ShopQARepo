@@ -65,9 +65,11 @@
                     </h4>
                 </div>
 
-                <button class="btn btn-success mt-3" disabled>
-                    Place Order (coming next)
-                </button>
+                <form method="post" asp-page-handler="PlaceOrder">
+                    <button type="submit" class="btn btn-success mt-3">
+                        Place Order
+                    </button>
+                </form>
             </div>
         </div>
     }
