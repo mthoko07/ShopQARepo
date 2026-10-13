@@ -1,0 +1,74 @@
+﻿@page
+@model ShopQA.Web.Pages.CheckoutModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container py-5">
+    <h1 class="mb-4">Checkout</h1>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Message))
+    {
+        <div class="alert @(Model.OrderSucceeded ? "alert-success" : "alert-warning")">
+            @Model.Message
+        </div>
+    }
+
+
+    @if (Model.Items.Count == 0)
+    {
+        <div class="alert alert-info">
+            Your cart is empty.
+            <a asp-page="/Index">Continue shopping</a>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4>Order Summary</h4>
+
+                @foreach (var item in Model.Items)
+                {
+                    <div class="d-flex justify-content-between border-bottom py-3">
+                        <div>
+                            <strong>@item.ProductName</strong>
+                            <div>Quantity: @item.Quantity</div>
+                        </div>
+                        <span>
+                            @item.Subtotal.ToString("C2",
+                                    System.Globalization.CultureInfo.GetCultureInfo("en-ZA"))
+                        </span>
+                    </div>
+                }
+
+                <div class="mt-4">
+                    <p>
+                        Subtotal: @Model.Subtotal.ToString("C2",
+                                                System.Globalization.CultureInfo.GetCultureInfo("en-ZA"))
+                    </p>
+
+                    <p>
+                        VAT (15%): @Model.Vat.ToString("C2",
+                                                System.Globalization.CultureInfo.GetCultureInfo("en-ZA"))
+                    </p>
+
+                    <p>
+                        Shipping: @Model.Shipping.ToString("C2",
+                                                System.Globalization.CultureInfo.GetCultureInfo("en-ZA"))
+                    </p>
+
+                    <h4>
+                        Total: @Model.Total.ToString("C2",
+                                                System.Globalization.CultureInfo.GetCultureInfo("en-ZA"))
+                    </h4>
+                </div>
+
+                <button class="btn btn-success mt-3" disabled>
+                    Place Order (coming next)
+                </button>
+            </div>
+        </div>
+    }
+</div>

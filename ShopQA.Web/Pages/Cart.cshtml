@@ -1,0 +1,77 @@
+﻿@page
+@model ShopQA.Web.Pages.CartModel
+
+@{
+    ViewData["Title"] = "My Shopping Cart";
+}
+
+<div class="container py-4">
+    <h1 class="mb-4">My Shopping Cart</h1>
+
+    @if (Model.Items.Count == 0)
+    {
+        <div class="alert alert-info">
+            Your shopping cart is empty.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <th>Action</th>
+                <thead class="table-light">
+                    <tr>
+                        <th>Product</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>
+                                @item.UnitPrice.ToString("C2",
+                                        System.Globalization.CultureInfo
+                                            .GetCultureInfo("en-ZA"))
+                            </td>
+                            <td>@item.Quantity</td>
+                            <td>
+                                @item.Subtotal.ToString("C2",
+                                        System.Globalization.CultureInfo
+                                            .GetCultureInfo("en-ZA"))
+                            </td>
+                            <td>
+                                <form method="post" asp-page-handler="Remove">
+                                    <input type="hidden"
+                                           name="productId"
+                                           value="@item.ProductId" />
+
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        Remove
+                                    </button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-end mb-4">
+
+            <a asp-page="/Checkout" class="btn btn-success mt-3">
+                Proceed to Checkout
+            </a>
+
+        </div>
+    }
+
+    <a asp-page="/Index" class="btn btn-primary">
+        Continue Shopping
+    </a>
+</div>

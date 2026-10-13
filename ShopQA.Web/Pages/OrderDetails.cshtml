@@ -1,0 +1,68 @@
+﻿@page "{id:int}"
+@model ShopQA.Web.Pages.OrderDetailsModel
+
+@{
+    ViewData["Title"] = "Order Details";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("en-ZA");
+}
+
+<div class="container py-5">
+    <h1 class="mb-4">Order Details</h1>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Message))
+    {
+        <div class="alert alert-warning">
+            @Model.Message
+        </div>
+    }
+    else if (Model.Order != null)
+    {
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h4>Order #@Model.Order.Id</h4>
+
+                <p>
+                    <strong>Date:</strong>
+                    @Model.Order.OrderDate.ToLocalTime().ToString("g")
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <span class="badge bg-success">
+                        @Model.Order.Status
+                    </span>
+                </p>
+
+                <hr />
+
+                <h5>Items</h5>
+
+                @foreach (var item in Model.Order.Items)
+                {
+                    <div class="d-flex justify-content-between border-bottom py-3">
+                        <div>
+                            <strong>@item.ProductName</strong>
+                            <div>Quantity: @item.Quantity</div>
+                            <div>Unit price: @item.UnitPrice.ToString("C2", culture)</div>
+                        </div>
+
+                        <span>
+                            @((item.UnitPrice * item.Quantity).ToString("C2", culture))
+                        </span>
+                    </div>
+                }
+
+                <div class="mt-4">
+                    <p>Subtotal: @Model.Order.Subtotal.ToString("C2", culture)</p>
+                    <p>VAT: @Model.Order.Vat.ToString("C2", culture)</p>
+                    <p>Shipping: @Model.Order.Shipping.ToString("C2", culture)</p>
+                    <h4>Total: @Model.Order.Total.ToString("C2", culture)</h4>
+                </div>
+
+                <a asp-page="/Index" class="btn btn-primary mt-3">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    }
+</div>
