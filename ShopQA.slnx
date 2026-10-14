@@ -7,6 +7,7 @@
     <File Path="Test-Plan.md" />
   </Folder>
   <Project Path="ShopQA.Tests/ShopQA.Tests.csproj" Id="28dc945e-607f-468f-87f5-286cd9a376a7" />
+  <Project Path="ShopQA.UITests/ShopQA.UITests.csproj" Id="18d95338-b25e-45c9-906f-e0955f1ece96" />
   <Project Path="ShopQA.Web/ShopQA.Web.csproj" Id="dc8309c2-fac1-45eb-ab34-cdf90f607988" />
   <Project Path="ShopQA/ShopQA.csproj" />
 </Solution>
