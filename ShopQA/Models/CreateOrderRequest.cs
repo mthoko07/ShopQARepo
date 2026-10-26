@@ -14,7 +14,6 @@ public class CreateOrderItemRequest
 {
     [Range(1, int.MaxValue)]
     public int ProductId { get; set; }
-
-    [Range(1, 100000)]
+    [Range(1, 10, ErrorMessage = "Quantity must be between 1 and 10.")]
     public int Quantity { get; set; }
 }
